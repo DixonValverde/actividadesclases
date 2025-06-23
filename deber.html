@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Stars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Estrellas del futbol</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Jugadores</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Teams
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Real Madrid</a></li>
+                            <li><a class="dropdown-item" href="#">FC Barcelona</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Santos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Stats</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search Players" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="messi.jpg" class="d-block w-100" alt="Player Highlight 1">
+            </div>
+            <div class="carousel-item">
+                <img src="cr7.jpg" class="d-block w-100" alt="Player Highlight 2">
+            </div>
+            <div class="carousel-item">
+                <img src="neymar.jpg" class="d-block w-100" alt="Player Highlight 3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-center my-5 text-primary">🌟Estrellas del Fútbol🌟</h1>
+
+    <!-- Player Cards Section -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <!-- Player Card 1 -->
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="Lionel Messi Inter Miami 2024 013024.jpg" class="card-img-top" alt="Lionel Messi">
+                    <div class="card-body">
+                        <h5 class="card-title">Lionel Messi</h5>
+                        <p class="card-text">Posición: Delantero<br>Equipo: Inter Miami (Estados unidos)<br>Goles: 672 (Club)</p>
+                        <a href="#" class="btn btn-primary">Ver Perfil</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Player Card 2 -->
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="cr72.jpg" class="card-img-top" alt="Cristiano Ronaldo">
+                    <div class="card-body">
+                        <h5 class="card-title">Cristiano Ronaldo</h5>
+                        <p class="card-text">Posición: Delantero<br>Equipo: Al-Nassr (Arabia saudita)<br>Goles: 763 (Club)</p>
+                        <a href="#" class="btn btn-primary">Ver Perfil</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Player Card 3 -->
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="ney1.jpg" class="card-img-top" alt="Neymar Jr">
+                    <div class="card-body">
+                        <h5 class="card-title">Neymar Jr</h5>
+                        <p class="card-text">Posición: Delantero<br>Equipo: Santos FC (brasil)<br>Goles: 279 (Club)</p>
+                        <a href="#" class="btn btn-primary">Ver Perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Detailed Player Info Section -->
+    <div class="container my-5">
+        <h2 class="text-center mb-4 text-primary">Información Detallada de los Jugadores</h2>
+        <div class="row justify-content-center">
+            <!-- Detailed Info for Lionel Messi -->
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Lionel Messi</h5>
+                        <p class="card-text">
+                            <strong>Posición:</strong> Delantero<br>
+                            <strong>Equipos:</strong><br>
+                            - FC Barcelona (2004-2021)<br>
+                            - Paris Saint-Germain (2021-2023)<br>
+                            - Inter Miami (2023-Presente)<br>
+                            <strong>Goles (Club):</strong> 672<br>
+                            <strong>Trofeos:</strong> 7 Balones de Oro, 4 Champions League, 10 La Liga, Copa América 2021
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Detailed Info for Cristiano Ronaldo -->
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Cristiano Ronaldo</h5>
+                        <p class="card-text">
+                            <strong>Posición:</strong> Delantero<br>
+                            <strong>Equipos:</strong><br>
+                            - Sporting CP (2002-2003)<br>
+                            - Manchester United (2003-2009, 2021-2022)<br>
+                            - Real Madrid (2009-2018)<br>
+                            - Juventus (2018-2021)<br>
+                            - Al-Nassr (2022-Presente)<br>
+                            <strong>Goles (Club):</strong> 763<br>
+                            <strong>Trofeos:</strong> 5 Balones de Oro, 5 Champions League, 7 Ligas (3 países), Eurocopa 2016
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Detailed Info for Neymar Jr -->
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Neymar Jr</h5>
+                        <p class="card-text">
+                            <strong>Posición:</strong> Delantero<br>
+                            <strong>Equipos:</strong><br>
+                            - Santos FC (2009-2013)<br>
+                            - FC Barcelona (2013-2017)<br>
+                            - Paris Saint-Germain (2017-2023)<br>
+                            - Al-Hilal (2023-Presente)<br>
+                            <strong>Goles (Club):</strong> 279<br>
+                            <strong>Trofeos:</strong> 1 Champions League, 5 Ligue 1, Oro Olímpico 2016, Copa Libertadores 2011
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

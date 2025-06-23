@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dixon - Mi Sitio Web</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .nav-section {
+            margin-bottom: 40px;
+        }
+
+        .nav-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .page-card {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 20px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .page-card:hover::before {
+            left: 100%;
+        }
+
+        .page-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .page-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .page-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .content-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .content-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+
+        .content-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .content-section th, .content-section td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .content-section th {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .content-section form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-section form div {
+            margin-bottom: 15px;
+        }
+
+        .content-section label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .content-section input, .content-section select, .content-section textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .content-section input:focus, .content-section select:focus, .content-section textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .content-section input[type="submit"], .content-section button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .content-section input[type="submit"]:hover, .content-section button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .content-section input[type="checkbox"], .content-section input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        ol, ul, dl {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        dt {
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        dd {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>DIXON</h1>
+            <p>Mi Sitio Web Personal</p>
+        </div>
+
+        <!-- Navegación a otras páginas -->
+        <div class="nav-section">
+            <h2 class="nav-title">🌐 Navegar por mi Sitio</h2>
+            <div class="pages-grid">
+                <a href="indexxx.html" class="page-card">
+                    <h3>📄 Página Indexxx</h3>
+                    <p>Contenido adicional</p>
+                </a>
+                <a href="bootstrap.html" class="page-card">
+                    <h3>🎨 Bootstrap</h3>
+                    <p>Diseños con Bootstrap</p>
+                </a>
+                <a href="deber.html" class="page-card">
+                    <h3>📚 Deber</h3>
+                    <p>Tareas y ejercicios</p>
+                </a>
+                <a href="ejemplo.html" class="page-card">
+                    <h3>💡 Ejemplo</h3>
+                    <p>Ejemplos prácticos</p>
+                </a>
+                <a href="etiquetas.html" class="page-card">
+                    <h3>🏷️ Etiquetas</h3>
+                    <p>Etiquetas HTML</p>
+                </a>
+                <a href="pagina.html" class="page-card">
+                    <h3>📖 Página</h3>
+                    <p>Contenido general</p>
+                </a>
+                 <a href="sapitos.html" class="page-card">
+                    <h3>🐸 Sapitos</h3>
+                    <p>Contenido general</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Contenido original -->
+        <div class="content-section">
+            <h1>HOLAAAAAA</h1>
+            <h2>TONOTOSSS</h2>
+            <h3>SOY</h3>
+            <h4>Dixon</h4>
+            <h5>Me gusta el pan</h5>
+            <h6>Con queso</h6>
+
+            <h2>Párrafos</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis nam tempora tempore atque. Aliquam a deleniti voluptates dicta vitae, harum laudantium mollitia quibusdam rerum velit architecto 
+                dolore qui consequatur consequuntur?</p>
+            
+            <h2>Listas ordenadas</h2>
+            <h3>Lenguajes de programación</h3>
+            <ol>
+                <li>Java</li>
+                <li>Python</li>
+                <li>PHP</li>
+            </ol>
+            
+            <h2>Lista no ordenadas</h2>
+            <h2>Números pares</h2>
+            <ul>
+                <li>Dos</li>
+                <li>Cuatro</li>
+                <li>Seis</li>
+            </ul>
+            
+            <h2>Lista de definición</h2>
+            <dl>
+                <dt>HTML</dt>
+                <dd>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi repellat temporibus modi dolores hic quis, qui nisi perspiciatis nostrum, numquam consectetur, sunt quod maiores eum quidem. Neque esse et dolor?</dd>
+                <dt>CSS</dt>
+                <dd>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam magni ipsum odit dolorem labore ullam perferendis praesentium, asperiores rerum voluptas? Autem quos aut dolores 
+                    aliquam nihil debitis doloribus saepe at?</dd>
+            </dl>
+            
+            <h2>Combinación de lista</h2>
+            <ol>
+                <li>Java</li>
+                <li>Python</li>
+                <li>PHP</li>
+                <li>
+                    <dl>
+                        <dt>Java</dt>
+                        <dd>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur, autem sed! Enim, omnis! Natus similique deserunt facilis porro suscipit quo harum, mollitia beatae! Officia, quasi! Alias iusto minus soluta sit.</dd>
+                    </dl>
+                </li>
+                <li>C</li>
+                <li>
+                    Pasos a realizar en programación
+                    <ol>
+                        <li>Abrir el IDE</li>
+                        <li>Crear un nuevo proyecto</li>
+                        <li>Escribir código</li>
+                        <li>Ejecutar el programa</li>
+                    </ol>
+                </li>
+            </ol>
+            
+            <h2>Tablas</h2>
+            <table> 
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Boris</td>
+                        <td>Valverde</td>
+                        <td>20</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2>Registro Personal</h2>
+            <form action="">
+                <div>
+                    <label for="">Nombre</label>
+                    <input type="text">
+                </div>
+                <div>
+                    <label for="">Edad</label>
+                    <input type="number">
+                </div>
+                <div>
+                    <label for="">Email</label>
+                    <input type="email" required>
+                </div>
+                <div>
+                    <label for="">Contraseña</label>
+                    <input type="password"/>
+                </div>
+                <div>
+                    <input type="submit" value="Enviar"/>
+                    <input type="submit" value="Registrar"/>
+                </div>
+                
+                <div>
+                    <label for="">Comentarios</label>
+                    <textarea name="" id="" placeholder="Ingrese un comentario" rows="10" cols="40"></textarea>
+                </div>
+                
+                <p>Seleccione una respuesta</p>
+                <div>
+                    <label for="">
+                        <input type="checkbox" name="" id=""> Java
+                    </label>
+                </div>
+                <div>
+                    <label for="">
+                        <input type="checkbox" name="" id=""> C++
+                    </label>
+                </div>
+                <div>
+                    <label for="">
+                        <input type="checkbox" name="" id=""> Python
+                    </label>
+                </div>
+                
+                <p>Seleccione su nivel de inglés</p>
+                <div>
+                    <label for="">
+                        <input type="radio" name="ingles"> A1
+                    </label>
+                </div>
+                <div>
+                    <label for="">
+                        <input type="radio" name="ingles"> A2
+                    </label>
+                </div>
+                <div>
+                    <label for="">
+                        <input type="radio" name="ingles"> B1
+                    </label>
+                </div>
+                <div>
+                    <label for="">
+                        <input type="radio" name="ingles"> B2
+                    </label>
+                </div>
+                
+                <p>Seleccione una provincia</p>
+                <select name="" id="">
+                    <option value="">La Paz</option>
+                    <option value="">Cochabamba</option>
+                    <option value="">Santa Cruz</option>
+                </select>
+                
+                <p>Seleccione en qué semestre se encuentra</p>
+                <select name="" id="">
+                    <option value="">Primer semestre</option>
+                    <option value="">Segundo semestre</option>
+                    <option value="">Tercer semestre</option>
+                    <option value="">Cuarto semestre</option>
+                </select>
+                
+                <div>
+                    <label for="">Subir archivo</label>
+                    <input type="file">
+                </div>
+                <div>
+                    <label for="">Fecha</label>
+                    <input type="date">
+                </div>
+                <div>
+                    <label for="">Hora</label>
+                    <input type="time">
+                </div>
+                <div>
+                    <label for="">Color</label>
+                    <input type="color">
+                </div>
+                
+                <div>
+                    <input type="submit" value="Enviar"/>
+                    <button type="button">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

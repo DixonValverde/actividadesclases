@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExploraMundo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            color: white;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #ffffff; /* Fondo blanco sólido */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #00aaff;
+        }
+
+        nav a {
+            color: #333333; /* Color oscuro para contraste con fondo blanco */
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #00aaff;
+        }
+
+        .main-section {
+            height: 100vh;
+            background: url('./hawai-tour-idiomas.jpg') no-repeat center center/cover;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-top: 80px; /* Ajuste para evitar que el contenido quede debajo del header fijo */
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #ffffff; /* Asegura que el texto sea visible sobre la imagen */
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #ffffff; /* Asegura que el texto sea visible sobre la imagen */
+        }
+
+        .btn {
+            background-color: #00aaff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0088cc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ExploraMundo</div>
+        <nav>
+            <a href="#">Inicio</a>
+            <a href="#">Destinos</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Testimonios</a>
+            <a href="#">Contacto</a>
+        </nav>
+    </header>
+
+    <section class="main-section">
+        <div class="hero">
+            <h1>Descubre el Mundo con Nosotros</h1>
+            <p>Vive experiencias únicas en los destinos más increíbles del planeta. Diseñamos viajes personalizados para que disfrutes cada momento.</p>
+            <a href="#" class="btn">Explorar Destinos</a>
+        </div>
+    </section>
+</body>
+</html>
