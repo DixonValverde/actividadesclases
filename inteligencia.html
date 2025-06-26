@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Cultura General</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        .timer-display {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .timer-warning {
+            background: linear-gradient(45deg, #ff4757, #c44569) !important;
+            animation: shake 0.5s infinite !important;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .question-number {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .answer-btn {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            text-align: left;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .answer-btn:hover {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+            transform: translateX(10px);
+        }
+
+        .answer-btn.selected {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .answer-btn.correct {
+            background: linear-gradient(45deg, #2ed573, #1e90ff);
+            color: white;
+            border-color: #2ed573;
+        }
+
+        .answer-btn.incorrect {
+            background: linear-gradient(45deg, #ff4757, #c44569);
+            color: white;
+            border-color: #ff4757;
+        }
+
+        .start-btn, .next-btn, .restart-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .start-btn:hover, .next-btn:hover, .restart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .results-container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .congratulations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .congrats-content {
+            background: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .icon-trophy {
+            font-size: 4rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="quiz-container">
+            <!-- Pantalla de inicio -->
+            <div id="startScreen" class="text-center py-5">
+                <div class="animate__animated animate__fadeInDown">
+                    <i class="fas fa-brain fa-5x mb-4" style="color: #667eea;"></i>
+                    <h1 class="display-4 mb-4" style="background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Quiz de Cultura General
+                    </h1>
+                    <p class="lead mb-4">Pon a prueba tus conocimientos con 20 preguntas</p>
+                    <p class="text-muted mb-5">
+                        <i class="fas fa-clock me-2"></i>Tienes 2 minutos para completar el quiz
+                    </p>
+                    <button class="start-btn" onclick="startQuiz()">
+                        <i class="fas fa-play me-2"></i>Comenzar Quiz
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pantalla del quiz -->
+            <div id="quizScreen" class="hidden">
+                <!-- Header con timer y progreso -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="timer-display text-center">
+                            <i class="fas fa-stopwatch me-2"></i>
+                            <span id="timer">02:00</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Pregunta <span id="currentQuestion">1</span> de 20</span>
+                                <span id="progressPercent">5%</span>
+                            </div>
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar" style="width: 5%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta -->
+                <div class="question-card card p-4 mb-4">
+                    <div class="question-number" id="questionNumber">1</div>
+                    <h3 id="questionText" class="mb-4"></h3>
+                    <div id="answersContainer"></div>
+                </div>
+
+                <!-- Botón siguiente -->
+                <div class="text-center">
+                    <button id="nextBtn" class="next-btn hidden" onclick="nextQuestion()">
+                        Siguiente Pregunta <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pantalla de resultados -->
+            <div id="resultsScreen" class="hidden">
+                <div class="results-container">
+                    <div class="animate__animated animate__fadeInUp">
+                        <i class="fas fa-chart-bar fa-4x mb-4" style="color: #667eea;"></i>
+                        <h2 class="mb-4">¡Quiz Completado!</h2>
+                        <div class="score-display" id="finalScore"></div>
+                        <div class="row text-center mb-4">
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body">
+                                        <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                                        <h5>Correctas</h5>
+                                        <h3 id="correctAnswers" class="text-success">0</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body">
+                                        <i class="fas fa-times-circle fa-2x text-danger mb-2"></i>
+                                        <h5>Incorrectas</h5>
+                                        <h3 id="incorrectAnswers" class="text-danger">0</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body">
+                                        <i class="fas fa-percentage fa-2x text-info mb-2"></i>
+                                        <h5>Porcentaje</h5>
+                                        <h3 id="percentage" class="text-info">0%</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="restart-btn" onclick="restartQuiz()">
+                            <i class="fas fa-redo me-2"></i>Intentar de Nuevo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de felicitaciones -->
+    <div class="congratulations" id="congratulations">
+        <div class="congrats-content animate__animated animate__bounceIn">
+            <div class="icon-trophy">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h2 class="mb-3">¡FELICITACIONES!</h2>
+            <h4 class="text-success mb-4">¡Respuesta perfecta!</h4>
+            <p class="lead">Has demostrado tener excelentes conocimientos de cultura general.</p>
+            <button class="btn btn-success btn-lg" onclick="closeCongratsModal()">
+                ¡Genial! <i class="fas fa-thumbs-up ms-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Preguntas del quiz
+        const questions = [
+            {
+                question: "¿Cuál es la capital de Australia?",
+                answers: ["Sídney", "Melbourne", "Canberra", "Perth"],
+                correct: 2
+            },
+            {
+                question: "¿En qué año llegó el hombre a la Luna?",
+                answers: ["1967", "1969", "1971", "1973"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el río más largo del mundo?",
+                answers: ["Amazonas", "Nilo", "Yangtsé", "Misisipi"],
+                correct: 1
+            },
+            {
+                question: "¿Quién escribió 'Cien años de soledad'?",
+                answers: ["Mario Vargas Llosa", "Gabriel García Márquez", "Julio Cortázar", "Jorge Luis Borges"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el planeta más grande del sistema solar?",
+                answers: ["Saturno", "Neptuno", "Júpiter", "Urano"],
+                correct: 2
+            },
+            {
+                question: "¿En qué continente se encuentra Egipto?",
+                answers: ["Asia", "África", "Europa", "América"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la moneda de Japón?",
+                answers: ["Won", "Yuan", "Yen", "Dong"],
+                correct: 2
+            },
+            {
+                question: "¿Quién pintó 'La Gioconda'?",
+                answers: ["Pablo Picasso", "Vincent van Gogh", "Leonardo da Vinci", "Miguel Ángel"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál es el océano más grande?",
+                answers: ["Atlántico", "Índico", "Ártico", "Pacífico"],
+                correct: 3
+            },
+            {
+                question: "¿En qué año comenzó la Primera Guerra Mundial?",
+                answers: ["1912", "1914", "1916", "1918"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el elemento químico con símbolo 'Au'?",
+                answers: ["Plata", "Oro", "Aluminio", "Argón"],
+                correct: 1
+            },
+            {
+                question: "¿Cuántos continentes hay en el mundo?",
+                answers: ["5", "6", "7", "8"],
+                correct: 2
+            },
+            {
+                question: "¿Quién fue el primer presidente de Estados Unidos?",
+                answers: ["Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la montaña más alta del mundo?",
+                answers: ["K2", "Kangchenjunga", "Everest", "Lhotse"],
+                correct: 2
+            },
+            {
+                question: "¿En qué país se encuentra Machu Picchu?",
+                answers: ["Bolivia", "Ecuador", "Colombia", "Perú"],
+                correct: 3
+            },
+            {
+                question: "¿Cuál es la velocidad de la luz?",
+                answers: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"],
+                correct: 0
+            },
+            {
+                question: "¿Quién compuso 'La Novena Sinfonía'?",
+                answers: ["Mozart", "Bach", "Beethoven", "Chopin"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál es el país más pequeño del mundo?",
+                answers: ["Mónaco", "San Marino", "Vaticano", "Liechtenstein"],
+                correct: 2
+            },
+            {
+                question: "¿En qué año cayó el Muro de Berlín?",
+                answers: ["1987", "1989", "1991", "1993"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el idioma más hablado en el mundo?",
+                answers: ["Inglés", "Español", "Mandarín", "Hindi"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timeLeft = 120; // 2 minutos en segundos
+        let timer;
+        let selectedAnswer = null;
+        let isAnswered = false;
+
+        function startQuiz() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('quizScreen').classList.remove('hidden');
+            startTimer();
+            displayQuestion();
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 30) {
+                    document.querySelector('.timer-display').classList.add('timer-warning');
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+            
+            const container = document.getElementById('answersContainer');
+            container.innerHTML = '';
+            
+            question.answers.forEach((answer, index) => {
+                const button = document.createElement('button');
+                button.className = 'answer-btn';
+                button.innerHTML = `<i class="fas fa-circle me-2"></i>${answer}`;
+                button.onclick = () => selectAnswer(index, button);
+                container.appendChild(button);
+            });
+            
+            selectedAnswer = null;
+            isAnswered = false;
+            document.getElementById('nextBtn').classList.add('hidden');
+        }
+
+        function selectAnswer(answerIndex, buttonElement) {
+            if (isAnswered) return;
+            
+            // Limpiar selecciones anteriores
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            selectedAnswer = answerIndex;
+            buttonElement.classList.add('selected');
+            
+            setTimeout(() => {
+                checkAnswer();
+            }, 500);
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === null) return;
+            
+            isAnswered = true;
+            const question = questions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            buttons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === question.correct) {
+                    btn.classList.add('correct');
+                    btn.innerHTML = `<i class="fas fa-check me-2"></i>${question.answers[index]}`;
+                } else if (index === selectedAnswer && selectedAnswer !== question.correct) {
+                    btn.classList.add('incorrect');
+                    btn.innerHTML = `<i class="fas fa-times me-2"></i>${question.answers[index]}`;
+                }
+            });
+            
+            if (selectedAnswer === question.correct) {
+                score++;
+            }
+            
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length - 1) {
+                    document.getElementById('nextBtn').classList.remove('hidden');
+                } else {
+                    endQuiz();
+                }
+            }, 1500);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timer);
+            
+            // Mostrar resultados
+            document.getElementById('quizScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            
+            document.getElementById('finalScore').textContent = `${score}/${questions.length}`;
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('incorrectAnswers').textContent = questions.length - score;
+            document.getElementById('percentage').textContent = percentage + '%';
+            
+            // Si responde todas correctas, mostrar animación de felicitaciones
+            if (score === questions.length) {
+                setTimeout(() => {
+                    showCongratulations();
+                }, 1000);
+            }
+        }
+
+        function showCongratulations() {
+            const modal = document.getElementById('congratulations');
+            modal.style.display = 'flex';
+            
+            // Crear confeti
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                
+                document.querySelector('.congrats-content').appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        function closeCongratsModal() {
+            document.getElementById('congratulations').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            timeLeft = 120;
+            selectedAnswer = null;
+            isAnswered = false;
+            
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+            
+            // Reset timer display
+            document.querySelector('.timer-display').classList.remove('timer-warning');
+            updateTimerDisplay();
+        }
+    </script>
+</body>
+</html>
